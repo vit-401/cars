@@ -60,12 +60,6 @@ export class CarsController {
     return this.carService.createOne(createCarDto);
   }
 
-  // @Post('/more')
-  // @ApiOperation({ summary: 'Create more cars' })
-  // @ApiBody({ type: [CreateCarDto] })
-  // createMore(@Body() createCarDtos: CreateCarDto[]) {
-  //   return this.carService.createMore(createCarDtos);
-  // }
 
   @Put(':id')
   @ApiOperation({summary: 'Update a car by ID'})

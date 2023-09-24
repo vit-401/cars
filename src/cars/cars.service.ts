@@ -44,13 +44,6 @@ export class CarService {
     return car.save();
   }
 
-  // async createMore(createCarDtos: CreateCarDto[]): Promise<Car[]> {
-  //   const cars = createCarDtos.map(async (dto) => {
-  //     const car = new this.carModel(dto);
-  //     return car.save();
-  //   });
-  //   return Promise.all(cars);
-  // }
 
   async deleteOne(id: ObjectId): Promise<Boolean> {
     const result = await this.carModel.deleteOne({_id: id});
