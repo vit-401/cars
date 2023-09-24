@@ -1,12 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { createWriteStream } from 'fs';
 import { get } from 'http';
-import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
-import { GlobalValidationPipe } from "./validation.filter";
-import {BadRequestException, ValidationPipe} from "@nestjs/common";
-import {HttpExceptionFilter} from "./http-exception.filter";
-import {AllExceptionsFilter} from "./AllExceptionsFilter";
 
 const PORT = process.env.PORT || 5000;
 const serverUrl = 'http://localhost:5000';
@@ -14,39 +10,12 @@ const serverUrl = 'http://localhost:5000';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
-  app.useGlobalPipes(
-    new ValidationPipe({
-      transform: true, //pipe that transform types
-      stopAtFirstError: true,
-      exceptionFactory: (errors) => {
-        const errorsForResponse = [];
-
-        errors.forEach((e) => {
-          const constraintsKeys = Object.keys(e.constraints);
-          constraintsKeys.forEach((ckey) => {
-            errorsForResponse.push({
-              message: e.constraints[ckey],
-              field: e.property,
-            });
-          });
-        });
-
-        throw new BadRequestException(errorsForResponse);
-      },
-    }),
-  );
-  app.useGlobalFilters(new AllExceptionsFilter());
-
-
-
-
-  app.useGlobalFilters(new HttpExceptionFilter());
 
   const config = new DocumentBuilder()
-    .setTitle('Cars example')
-    .setDescription('The Cars API description')
+    .setTitle('Products example')
+    .setDescription('The cats API description')
     .setVersion('1.0')
-    .addTag('cars')
+    .addTag('products')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
