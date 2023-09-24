@@ -56,9 +56,6 @@ window.onload = function() {
                   "schema": {
                     "allOf": [
                       {
-                        "$ref": "#/components/schemas/PaginatedResponse"
-                      },
-                      {
                         "properties": {
                           "data": {
                             "type": "array",
@@ -220,7 +217,7 @@ window.onload = function() {
     },
     "info": {
       "title": "Cars example",
-      "description": "The Cars API description",
+      "description": "The cats API description",
       "version": "1.0",
       "contact": {}
     },

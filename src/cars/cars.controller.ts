@@ -1,11 +1,10 @@
-import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query} from '@nestjs/common';
+import {Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseIntPipe, Post, Put, Query} from '@nestjs/common';
 import {CarService} from './cars.service';
 import {CreateCarDto} from './dto/create-car.dto';
 import {UpdateCarDto} from "./dto/update-car.dto";
 import {ObjectId} from "mongoose";
 import {ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiResponse, getSchemaPath} from "@nestjs/swagger";
 import {Car} from "./schema/car.schema";
-import {PaginatedResponse} from './interfaces/PaginatedResponse'
 
 @Controller('cars')
 export class CarsController {
@@ -20,7 +19,6 @@ export class CarsController {
     description: 'Successfully retrieved list of cars',
     schema: {
       allOf: [
-        {$ref: getSchemaPath(PaginatedResponse)}, // Reference to the generic paginated response
         {
           properties: {
             data: {
@@ -37,8 +35,8 @@ export class CarsController {
     },
   })
   findAll(
-    @Query('page', new ParseIntPipe()) page: number = 1,
-    @Query('limit', new ParseIntPipe()) limit: number = 10,
+    @Query('page',new DefaultValuePipe(1), new ParseIntPipe(), ) page: number ,
+    @Query('limit', new DefaultValuePipe(10), new ParseIntPipe()) limit: number,
   ) {
     return this.carService.findAll(page, limit); // Ensure your service method returns the paginated response correctly
   }
