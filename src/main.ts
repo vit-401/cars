@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { createWriteStream } from 'fs';
 import { get } from 'http';
+import {BadRequestException, ValidationPipe} from "@nestjs/common";
+import {HttpExceptionFilter} from "./http-exception.filter";
 
 const PORT = process.env.PORT || 5000;
 const serverUrl = 'http://localhost:5000';
@@ -10,6 +12,19 @@ const serverUrl = 'http://localhost:5000';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
+  app.useGlobalPipes(
+    new ValidationPipe({
+      stopAtFirstError: false,
+      exceptionFactory: (errors) => {
+        const customErrors = errors.map((e) => {
+          const firstError = JSON.stringify(e.constraints);
+          return { field: e.property, message: firstError };
+        });
+        throw new BadRequestException(customErrors);
+      },
+    }),
+  );
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   const config = new DocumentBuilder()
     .setTitle('Cars example')

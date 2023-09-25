@@ -22,6 +22,236 @@ window.onload = function() {
           }
         }
       },
+      "/auth/me": {
+        "get": {
+          "operationId": "AuthController_getUserData",
+          "summary": "Get User Data",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "Success"
+            },
+            "401": {
+              "description": "Unauthorized"
+            }
+          },
+          "tags": [
+            "Auth"
+          ],
+          "security": [
+            {
+              "cookie": []
+            },
+            {
+              "Auth": []
+            },
+            {
+              "bearer": []
+            }
+          ]
+        }
+      },
+      "/auth/login": {
+        "post": {
+          "operationId": "AuthController_login",
+          "summary": "Login",
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Logged in"
+            }
+          },
+          "tags": [
+            "Auth"
+          ],
+          "security": [
+            {
+              "cookie": []
+            },
+            {
+              "Auth": []
+            }
+          ]
+        }
+      },
+      "/auth/registration": {
+        "post": {
+          "operationId": "AuthController_registration",
+          "summary": "User Registration",
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Registered successfully"
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          },
+          "tags": [
+            "Auth"
+          ],
+          "security": [
+            {
+              "cookie": []
+            },
+            {
+              "Auth": []
+            }
+          ]
+        }
+      },
+      "/auth/registration-confirmation": {
+        "post": {
+          "operationId": "AuthController_confirmRegistration",
+          "summary": "Confirm Registration",
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "description": "Confirmation Code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationConfirmationDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Email confirmed"
+            },
+            "404": {
+              "description": "Not Found"
+            }
+          },
+          "tags": [
+            "Auth"
+          ],
+          "security": [
+            {
+              "cookie": []
+            },
+            {
+              "Auth": []
+            }
+          ]
+        }
+      },
+      "/auth/registration-email-resending": {
+        "post": {
+          "operationId": "AuthController_resendRegistrationEmail",
+          "summary": "Resend Registration Email",
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "description": "Email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailResendingDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Email resent"
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          },
+          "tags": [
+            "Auth"
+          ],
+          "security": [
+            {
+              "cookie": []
+            },
+            {
+              "Auth": []
+            }
+          ]
+        }
+      },
+      "/auth/logout": {
+        "post": {
+          "operationId": "AuthController_logout",
+          "summary": "Logout",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "Logged out"
+            },
+            "401": {
+              "description": "Unauthorized"
+            }
+          },
+          "tags": [
+            "Auth"
+          ],
+          "security": [
+            {
+              "cookie": []
+            },
+            {
+              "Auth": []
+            },
+            {
+              "bearer": []
+            }
+          ]
+        }
+      },
+      "/auth/refresh-token": {
+        "post": {
+          "operationId": "AuthController_refreshToken",
+          "summary": "Refresh Token",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "Token refreshed"
+            },
+            "401": {
+              "description": "Unauthorized"
+            }
+          },
+          "tags": [
+            "Auth"
+          ],
+          "security": [
+            {
+              "cookie": []
+            },
+            {
+              "Auth": []
+            },
+            {
+              "bearer": []
+            }
+          ]
+        }
+      },
       "/cars": {
         "get": {
           "operationId": "CarsController_findAll",
@@ -230,6 +460,47 @@ window.onload = function() {
     "servers": [],
     "components": {
       "schemas": {
+        "RegistrationDto": {
+          "type": "object",
+          "properties": {
+            "login": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "login",
+            "password",
+            "email"
+          ]
+        },
+        "RegistrationConfirmationDto": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "code"
+          ]
+        },
+        "EmailResendingDto": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "email"
+          ]
+        },
         "Car": {
           "type": "object",
           "properties": {
