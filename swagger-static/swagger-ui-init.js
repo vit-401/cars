@@ -40,9 +40,6 @@ window.onload = function() {
           ],
           "security": [
             {
-              "cookie": []
-            },
-            {
               "Auth": []
             },
             {
@@ -61,7 +58,7 @@ window.onload = function() {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegistrationDto"
+                  "$ref": "#/components/schemas/LoginDto"
                 }
               }
             }
@@ -75,9 +72,6 @@ window.onload = function() {
             "Auth"
           ],
           "security": [
-            {
-              "cookie": []
-            },
             {
               "Auth": []
             }
@@ -111,9 +105,6 @@ window.onload = function() {
             "Auth"
           ],
           "security": [
-            {
-              "cookie": []
-            },
             {
               "Auth": []
             }
@@ -149,9 +140,6 @@ window.onload = function() {
           ],
           "security": [
             {
-              "cookie": []
-            },
-            {
               "Auth": []
             }
           ]
@@ -186,9 +174,6 @@ window.onload = function() {
           ],
           "security": [
             {
-              "cookie": []
-            },
-            {
               "Auth": []
             }
           ]
@@ -211,9 +196,6 @@ window.onload = function() {
             "Auth"
           ],
           "security": [
-            {
-              "cookie": []
-            },
             {
               "Auth": []
             },
@@ -240,9 +222,6 @@ window.onload = function() {
             "Auth"
           ],
           "security": [
-            {
-              "cookie": []
-            },
             {
               "Auth": []
             },
@@ -459,7 +438,29 @@ window.onload = function() {
     ],
     "servers": [],
     "components": {
+      "securitySchemes": {
+        "bearer": {
+          "scheme": "bearer",
+          "bearerFormat": "JWT",
+          "type": "http"
+        }
+      },
       "schemas": {
+        "LoginDto": {
+          "type": "object",
+          "properties": {
+            "login": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "login",
+            "password"
+          ]
+        },
         "RegistrationDto": {
           "type": "object",
           "properties": {

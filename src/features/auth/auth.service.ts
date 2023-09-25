@@ -20,8 +20,8 @@ export class AuthService {
       date: new Date(),
       login,
     };
-    const accessToken = jwt.sign(payload, secretKey, { expiresIn: '1d' });
-    const refreshToken = jwt.sign(payload, secretKey, { expiresIn: '30d' });
+    const accessToken = jwt.sign(payload, secretKey, { expiresIn: '2h' });
+    const refreshToken = jwt.sign(payload, secretKey, { expiresIn: '1d' });
     return {
       accessToken,
       refreshToken,

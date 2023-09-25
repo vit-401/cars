@@ -28,9 +28,9 @@ import {
 } from "@nestjs/swagger";
 import {RegistrationConfirmationDto} from "./dto/registration-confirmation.dto";
 import {EmailResendingDto} from "./dto/email-resending.dto";
+import {LoginDto} from "./dto/login.dto";
 
 @ApiBearerAuth('Auth')
-@ApiCookieAuth()
 @ApiTags('Auth') // Tagging the Controller
 @Controller('auth')
 
@@ -40,7 +40,6 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly usersService: UsersService,
   ) {
-    const options = new DocumentBuilder().addBearerAuth();
 
   }
 
@@ -65,7 +64,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   @ApiOperation({summary: 'Login'})
-  @ApiBody({type: RegistrationDto}) // Assuming this is the correct DTO for login as well
+  @ApiBody({type: LoginDto}) // Assuming this is the correct DTO for login as well
   @ApiResponse({status: 200, description: 'Logged in'})
   async login(@Request() req, @Res({passthrough: true}) res) {
     const userData = req.user.data;

@@ -1,8 +1,8 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { createWriteStream } from 'fs';
-import { get } from 'http';
+import {NestFactory} from '@nestjs/core';
+import {AppModule} from './app.module';
+import {DocumentBuilder, SwaggerModule} from '@nestjs/swagger';
+import {createWriteStream} from 'fs';
+import {get} from 'http';
 import {BadRequestException, ValidationPipe} from "@nestjs/common";
 import {HttpExceptionFilter} from "./http-exception.filter";
 
@@ -18,7 +18,7 @@ async function bootstrap() {
       exceptionFactory: (errors) => {
         const customErrors = errors.map((e) => {
           const firstError = JSON.stringify(e.constraints);
-          return { field: e.property, message: firstError };
+          return {field: e.property, message: firstError};
         });
         throw new BadRequestException(customErrors);
       },
@@ -26,7 +26,7 @@ async function bootstrap() {
   );
   app.useGlobalFilters(new HttpExceptionFilter());
 
-  const config = new DocumentBuilder()
+  const config = new DocumentBuilder().addBearerAuth()
     .setTitle('Cars example')
     .setDescription('The cats API description')
     .setVersion('1.0')
@@ -74,4 +74,5 @@ async function bootstrap() {
     });
   }
 }
+
 bootstrap();
