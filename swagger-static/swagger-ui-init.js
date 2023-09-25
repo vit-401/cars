@@ -19,7 +19,10 @@ window.onload = function() {
             "200": {
               "description": ""
             }
-          }
+          },
+          "tags": [
+            "hello world test"
+          ]
         }
       },
       "/auth/me": {
@@ -291,7 +294,10 @@ window.onload = function() {
                 }
               }
             }
-          }
+          },
+          "tags": [
+            "Cars"
+          ]
         },
         "post": {
           "operationId": "CarsController_createOne",
@@ -318,7 +324,10 @@ window.onload = function() {
                 }
               }
             }
-          }
+          },
+          "tags": [
+            "Cars"
+          ]
         }
       },
       "/cars/{id}": {
@@ -350,7 +359,10 @@ window.onload = function() {
             "404": {
               "description": "Car not found"
             }
-          }
+          },
+          "tags": [
+            "Cars"
+          ]
         },
         "put": {
           "operationId": "CarsController_update",
@@ -390,7 +402,10 @@ window.onload = function() {
             "404": {
               "description": "Car not found"
             }
-          }
+          },
+          "tags": [
+            "Cars"
+          ]
         },
         "delete": {
           "operationId": "CarsController_deleteOne",
@@ -420,22 +435,20 @@ window.onload = function() {
             "404": {
               "description": "Car not found"
             }
-          }
+          },
+          "tags": [
+            "Cars"
+          ]
         }
       }
     },
     "info": {
-      "title": "Cars example",
-      "description": "The cats API description",
+      "title": "Cars test task app",
+      "description": "Car API description",
       "version": "1.0",
       "contact": {}
     },
-    "tags": [
-      {
-        "name": "cars",
-        "description": ""
-      }
-    ],
+    "tags": [],
     "servers": [],
     "components": {
       "securitySchemes": {

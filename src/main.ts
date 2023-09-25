@@ -27,10 +27,9 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
 
   const config = new DocumentBuilder().addBearerAuth()
-    .setTitle('Cars example')
-    .setDescription('The cats API description')
+    .setTitle('Cars test task app')
+    .setDescription('Car API description')
     .setVersion('1.0')
-    .addTag('cars')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);

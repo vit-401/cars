@@ -3,9 +3,20 @@ import {CarService} from './cars.service';
 import {CreateCarDto} from './dto/create-car.dto';
 import {UpdateCarDto} from "./dto/update-car.dto";
 import {ObjectId} from "mongoose";
-import {ApiBody, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiResponse, getSchemaPath} from "@nestjs/swagger";
+import {
+  ApiBody,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+  getSchemaPath
+} from "@nestjs/swagger";
 import {Car} from "./schema/car.schema";
 
+
+@ApiTags('Cars') // Tagging the Controller
 @Controller('cars')
 export class CarsController {
   constructor(private carService: CarService) {
@@ -35,7 +46,7 @@ export class CarsController {
     },
   })
   findAll(
-    @Query('page',new DefaultValuePipe(1), new ParseIntPipe(), ) page: number ,
+    @Query('page', new DefaultValuePipe(1), new ParseIntPipe(),) page: number,
     @Query('limit', new DefaultValuePipe(10), new ParseIntPipe()) limit: number,
   ) {
     return this.carService.findAll(page, limit); // Ensure your service method returns the paginated response correctly
